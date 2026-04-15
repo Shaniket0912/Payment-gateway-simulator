@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecurePay Gateway</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-lock"></i> SecurePay Gateway</h1>
+            <p>Safe and secure payment processing</p>
+        </header>
+
+        <div class="payment-container">
+            <div class="payment-form">
+                <div class="form-group">
+                    <label for="amount">Payment Amount (₹)</label>
+                    <input type="number" id="amount" placeholder="0.00" min="0.01" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+                    <i class="fab fa-cc-visa card-icon" id="visa-icon"></i>
+                    <i class="fab fa-cc-mastercard card-icon" id="mastercard-icon"></i>
+                    <i class="fab fa-cc-amex card-icon" id="amex-icon"></i>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expiry">Expiry Date</label>
+                        <input type="text" id="expiry" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group cvv-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" placeholder="123" required>
+                        <span class="cvv-hint">3 digits (4 for Amex)</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Cardholder Name</label>
+                    <input type="text" id="name" placeholder="Cardholder Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="your@email.com" required>
+                </div>
+
+                <button id="pay-button" class="btn-pay">Pay Now <i class="fas fa-lock"></i></button>
+
+                <div class="security-info">
+                    <p><i class="fas fa-shield-alt"></i> Your payment is secured with 256-bit encryption</p>
+                </div>
+            </div>
+
+            <div class="payment-summary">
+                <h2>Order Summary</h2>
+                <div class="summary-item">
+                    <span>Subtotal</span>
+                    <span id="subtotal">₹0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span>Tax (18%)</span>
+                    <span id="tax">₹0.00</span>
+                </div>
+                <div class="summary-item total">
+                    <span>Total</span>
+                    <span id="total">₹0.00</span>
+                </div>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-amex"></i>
+                    <img src="rupay-logo.png" alt="RuPay" width="40">
+                </div>
+            </div>
+        </div>
+
+        <div id="processing-modal" class="modal">
+            <div class="modal-content">
+                <div class="loader"></div>
+                <h3>Processing Payment</h3>
+                <p id="processing-message">Verifying transaction details...</p>
+            </div>
+        </div>
+
+        <div id="result-modal" class="modal">
+            <div class="modal-content">
+                <div id="result-icon">
+                    <i class="fas fa-check-circle success"></i>
+                </div>
+                <h3 id="result-title">Payment Successful</h3>
+                <p id="result-message">Your payment of ₹0.00 has been processed successfully.</p>
+                <div id="transaction-details" class="transaction-details">
+                    <p><strong>Transaction ID:</strong> <span id="transaction-id"></span></p>
+                    <p><strong>Date:</strong> <span id="transaction-date"></span></p>
+                    <p><strong>Card:</strong> <span id="transaction-card"></span></p>
+                </div>
+                <button id="close-modal" class="btn-close">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="confetti-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1001;"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
